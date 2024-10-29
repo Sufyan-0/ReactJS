@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { SlOptions } from "react-icons/sl";
 
-export default function Post (){
+export default function Post (props){
+    // console.log(props)
     let [like , setLike] = useState(0)
     let [commit , setCommit] = useState(0)
     let [share , setShare] = useState(0)
@@ -12,7 +13,7 @@ export default function Post (){
                     <img className="postImg" src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg" alt="" />
                    <div>
 
-                   <h3 className="name">Sufyan </h3>
+                   <h3 className="name">{props.name} </h3>
                    <p className="time">20mint ago</p>
                    </div>
                     </div>

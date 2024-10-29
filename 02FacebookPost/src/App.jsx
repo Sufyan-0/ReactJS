@@ -6,9 +6,10 @@ function App() {
 
   return (
     <>
-    <Post></Post><Post></Post>
-    <Post></Post>
-    <Post></Post>
+    <Post name = "Sufyan Ahmed"></Post>
+    <Post name = "abdullah"></Post>
+    <Post name = "Shehzad"></Post>
+    <Post name = "Hassan"></Post>
     </>
   )
 }
