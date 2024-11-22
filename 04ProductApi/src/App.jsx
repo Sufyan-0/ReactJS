@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-     <SearchBar></SearchBar>
+     {/* <SearchBar></SearchBar> */}
      <ProductCard></ProductCard>
     </>
   )
