@@ -1,26 +1,45 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import SearchBar from './SearchBar'
+import Filter from './Filter';
 function ProductCard() {
     const [data , setData] = useState()
+    const [filteredData, setFilteredData] = useState([]);
     const API = "https://dummyjson.com/products"
   
     const productsFunc =async()=>{
      const product = await axios(API)
     // console.log(product?.data?.products)
      setData(product?.data?.products)
+     setFilteredData(product?.data?.products); 
     }
     useEffect(()=>{
       productsFunc()
     },[])
-   console.log(data)
+   
+    const handleSearch = (searchQuery) => {
+      if (searchQuery.trim() === '') {
+        // If search query is empty, show all products
+        setFilteredData(data);
+      } else {
+        // Filter products based on the search query
+        const filtered = data.filter((item) =>
+          item.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredData(filtered);
+      }
+    };
   return (
     <>
-
-  <div className='container mx-auto mt-5 grid grid-cols-4 gap-4'>
-        {data?.map((item)=>{
-           return <>
-             <div className="max-w-md mx-auto rounded-md overflow-hidden shadow-md hover:shadow-lg">
+  <SearchBar onSearch={handleSearch}/>
+   <Filter></Filter>
+   {(filteredData.length === 0)? <div className='container mx-auto flex justify-center mt-5 text-red-600'>Not Found</div> :  <div className='container mx-auto mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+        {filteredData?.map((item)=>{
+           
+           
+           return(
+             <div key ={item.id}className="max-w-md mx-auto rounded-md overflow-hidden shadow-md hover:shadow-lg">
                <div className="relative">
                <img className="w-full" src={item.thumbnail} alt="Product Image"/>
                <div className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm font-medium">SALE
@@ -38,9 +57,10 @@ function ProductCard() {
            </div>
            </div>
 
-           </>
+)
         })}
- </div>
+ </div> }
+ 
 
     </>
   )
