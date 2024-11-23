@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 function SearchBar({ onSearch }) {
@@ -8,9 +8,12 @@ function SearchBar({ onSearch }) {
   const handleSearch = () => {
     onSearch(userSearch); // Pass the search query to the parent
   };
-
   const handleKeyPress = (event) => {
+    
     if (event.key === 'Enter') {
+      handleSearch(); // Trigger search on Enter key press
+    }else if (event.key === 'Backspace') {
+      console.log("Backspace")
       handleSearch(); // Trigger search on Enter key press
     }
   };
